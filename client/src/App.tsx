@@ -1,7 +1,15 @@
+import { Tasks } from "./sections";
+import { Head } from "./sections";
+
 const App = () => {
   return (
     <main className="relative">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <section className="padding">
+        <Head />
+      </section>
+      <section className="padding-x py-10">
+        <Tasks />
+      </section>
     </main>
   );
 };
