@@ -1,50 +1,52 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Types
-import { ITask } from "../../typings";
+import { ITaskData } from "../../typings";
 
 type taskManagerState = {
-  tasks: ITask[];
+  tasks: ITaskData[];
+  taskData: ITaskData;
 };
 
 export const initialState: taskManagerState = {
   tasks: [
     {
-      imgURL: "IMG",
-      label: "Go shopping",
-      subtext:
+      id: 1,
+      name: "Go shopping",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
     {
-      imgURL: "IMG",
-      label: "Pay bills",
-      subtext:
+      id: 12,
+      name: "Pay bills",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
     {
-      imgURL: "IMG",
-      label: "task 2",
-      subtext:
+      id: 14,
+      name: "task 2",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
     {
-      imgURL: "IMG",
-      label: "task 3",
-      subtext:
+      id: 16,
+      name: "task 3",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
     {
-      imgURL: "IMG",
-      label: "task 4",
-      subtext:
+      id: 18,
+      name: "task 4",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
     {
-      imgURL: "IMG",
-      label: "task 5",
-      subtext:
+      id: 19,
+      name: "task 5",
+      description:
         "Enjoy seamless shopping with our complimentary shipping service.",
     },
   ],
+  taskData: {} as ITaskData,
 };
 
 export const taskSlice = createSlice({
@@ -54,11 +56,22 @@ export const taskSlice = createSlice({
     setTasks: (state, action: PayloadAction<tasks[]>) => {
       state.tasks = action.payload;
     },
+
+    setTaskData: (state, action: PayloadAction<ITaskData | null>) => {
+      // update the task data input value
+      if (action.payload) {
+        const { name, value } = action.payload;
+        state.taskData = { ...state.taskData, [name]: value };
+      } else {
+        // reset the task data
+        state.taskData = {};
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setTasks } = taskSlice.actions;
+export const { setTasks, setTaskData } = taskSlice.actions;
 
 // export reducer
 export default taskSlice.reducer;

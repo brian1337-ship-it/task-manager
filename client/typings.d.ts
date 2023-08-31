@@ -1,5 +1,5 @@
-export interface ITask {
-  imgURL: string;
-  label: string;
-  subtext: string;
+export interface ITaskData {
+  id: number;
+  name: string;
+  description: string;
 }

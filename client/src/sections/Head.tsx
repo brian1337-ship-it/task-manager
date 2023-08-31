@@ -1,9 +1,30 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "../components";
+import { useAppDispatch, useAppSelector } from "../reduxHooks";
+import { setTaskData } from "../slices/taskSlice";
 
 const Head = () => {
   // modal visibility
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  //  the state
+  const { taskData } = useAppSelector((state) => state.taskManager);
+
+  const dispatch = useAppDispatch();
+
+  // handle input change
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target;
+
+    dispatch(setTaskData({ name, value }));
+  };
+
+  // Close the modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+
+    dispatch(setTaskData(null));
+  };
 
   return (
     <section className="max-container max-sm:mt-12">
@@ -15,22 +36,28 @@ const Head = () => {
           handleButtonClick={() => setShowModal(true)}
         />
       </div>
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
+
+      {/* The Modal */}
+      <Modal isVisible={showModal} onClose={() => handleCloseModal()}>
         <div className="p-6">
           <h3 className=" text-xl font-semibold text-gray-900 mb-5 ">
             Create Task
           </h3>
 
           <div className="w-full max-w-lg ">
-            <form className="bg-white  rounded md:px-8 pt-6 pb-8 mb-4">
+            <div className="bg-white  rounded md:px-8 pt-6 pb-8 mb-4">
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Task
                 </label>
                 <input
-                  className="block appearance-none border  w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline     text-sm text-gray-900 bg-gray-50 rounded-lg  border-gray-300"
+                  className="block appearance-none border  w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline text-sm text-gray-900 bg-gray-50 rounded-lg  border-gray-300"
                   type="text"
-                  placeholder="Task Name"
+                  required
+                  onChange={handleChange}
+                  value={taskData["name"] || ""}
+                  name="name"
+                  placeholder="Enter Task Name"
                 />
               </div>
               <div className="mb-6">
@@ -42,6 +69,11 @@ const Head = () => {
                   <textarea
                     rows="4"
                     className="block p-2.5 appearance-none w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  focus:outline-none focus:shadow-outline  "
+                    type="text"
+                    required
+                    onChange={handleChange}
+                    value={taskData["description"] || ""}
+                    name="description"
                     placeholder="Task descriiption..."
                   ></textarea>
                 </div>
@@ -58,11 +90,11 @@ const Head = () => {
                     backgroundColor="bg-white"
                     borderColor="border-slate-gray"
                     textColor="text-slate-gray"
-                    handleButtonClick={() => setShowModal(false)}
+                    handleButtonClick={() => handleCloseModal()}
                   />
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </Modal>

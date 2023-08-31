@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import taskReducer from "../features/taskSlice";
+import taskReducer from "./slices/taskSlice";
 
 export const store = configureStore({
   reducer: {
     taskManager: taskReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;
