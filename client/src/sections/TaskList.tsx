@@ -3,7 +3,7 @@ import { TaskCard } from "../components";
 import { setTasks } from "../features/taskSlice";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 
-const Tasks = () => {
+const TaskList = () => {
   const { tasks } = useAppSelector((state) => state.taskManager);
 
   return (
@@ -15,4 +15,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default TaskList;

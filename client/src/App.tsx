@@ -1,4 +1,4 @@
-import { Tasks } from "./sections";
+import { TaskList } from "./sections";
 import { Head } from "./sections";
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
         <Head />
       </section>
       <section className="padding-x py-10">
-        <Tasks />
+        <TaskList />
       </section>
     </main>
   );

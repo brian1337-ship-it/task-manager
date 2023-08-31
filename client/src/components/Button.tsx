@@ -1,10 +1,11 @@
 type Props = {
-    label: string;
-    backgroundColor: string;
-    textColor: string;
-    borderColor: string;
-    fullWidth: boolean;
-}
+  label: string;
+  backgroundColor: string;
+  textColor: string;
+  borderColor: string;
+  fullWidth: boolean;
+  handleButtonClick: () => void;
+};
 
 const Button = ({
   label,
@@ -12,6 +13,7 @@ const Button = ({
   textColor,
   borderColor,
   fullWidth,
+  handleButtonClick,
 }: Props) => {
   return (
     <button
@@ -21,6 +23,7 @@ const Button = ({
           ? `${backgroundColor} ${textColor} ${borderColor}`
           : "bg-coral-red text-white border-coral-red"
       } rounded-full ${fullWidth && "w-full"}`}
+      onClick={() => handleButtonClick()}
     >
       {label}
     </button>

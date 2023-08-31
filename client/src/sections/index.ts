@@ -1,4 +1,4 @@
 import Head from "./Head";
-import Tasks from "./Tasks";
+import TaskList from "./TaskList";
 
-export { Head, Tasks };
+export { Head, TaskList };
