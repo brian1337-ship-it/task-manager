@@ -1,20 +1,29 @@
 import express from "express";
 import { processRequestBody } from "zod-express-middleware";
-import { createTaskHandler, updateTaskHandler } from "./task.controller";
-import { createTaskSchema } from "./task.schema";
+import {
+  createTaskHandler,
+  deleteTaskHandler,
+  findAllTasksHandler,
+  updateTaskHandler,
+} from "./task.controller";
+import { taskSchema } from "./task.schema";
 
 const router = express.Router();
 
-//  task routes
+// Find all tasks
+router.get("/", findAllTasksHandler);
 
-// router.get("/", (req, res) => {
-//   return res.send(res.locals.user);
-// });
+// Create task
+router.post("/", processRequestBody(taskSchema.body), createTaskHandler);
 
-// create task
-router.post("/", processRequestBody(createTaskSchema.body), createTaskHandler);
+// Update task
+router.patch(
+  "/:taskId",
+  processRequestBody(taskSchema.body),
+  updateTaskHandler
+);
 
-// update task
-router.patch("/:taskId", updateTaskHandler);
+// Delete task
+router.delete("/:taskId", deleteTaskHandler);
 
 export default router;

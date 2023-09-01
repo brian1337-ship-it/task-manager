@@ -1,30 +1,43 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { CreateTaskBody, UpdateTaskParams } from "./task.schema";
-import { createTask, findTask } from "./task.service";
+import { RequestTaskBody, RequestTaskParams } from "./task.schema";
+import { createTask, deleteTask, findAllTasks, findTask } from "./task.service";
 
-// create task handler
+// @desc    Find all tasks
+// @route   GET /api/tasks
+// @access  Public
+export async function findAllTasksHandler(_: Request, res: Response) {
+  const tasks = await findAllTasks();
+
+  return res.status(StatusCodes.OK).send(tasks);
+}
+
+// @desc    Create task
+// @route   POST /api/tasks
+// @access  Public
 export async function createTaskHandler(
-  req: Request<{}, {}, CreateTaskBody>,
+  req: Request<{}, {}, RequestTaskBody>,
   res: Response
 ) {
   const { name, description } = req.body;
 
-  //   create the task
   try {
     // call the service
     await createTask({ name, description });
 
-    return res.status(StatusCodes.CREATED).send("Task created successfully");
+    const tasks = await findAllTasks();
+
+    return res.status(StatusCodes.CREATED).send(tasks);
   } catch (e: any) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e.message);
   }
 }
 
-// update task handler
-
+// @desc    Update task
+// @route   PATCH /api/tasks/:taskId
+// @access  Public
 export async function updateTaskHandler(
-  req: Request<UpdateTaskParams, {}, CreateTaskBody>,
+  req: Request<RequestTaskParams, {}, RequestTaskBody>,
   res: Response
 ) {
   const { taskId } = req.params;
@@ -42,4 +55,28 @@ export async function updateTaskHandler(
   await task.save();
 
   return res.status(StatusCodes.OK).send(task);
+}
+
+// @desc    Delete task
+// @route   DELETE /api/tasks/:taskId
+// @access  Public
+export async function deleteTaskHandler(
+  req: Request<RequestTaskParams, {}, {}>,
+  res: Response
+) {
+  const { taskId } = req.params;
+
+  const task = await findTask(taskId);
+
+  if (!task) {
+    return res.status(StatusCodes.NOT_FOUND).send("Task not found");
+  }
+
+  const query = { _id: taskId };
+
+  await deleteTask(query);
+
+  const tasks = await findAllTasks();
+
+  return res.status(StatusCodes.OK).send(tasks);
 }

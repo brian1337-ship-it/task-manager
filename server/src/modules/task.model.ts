@@ -1,6 +1,6 @@
 import { getModelForClass, prop, pre } from "@typegoose/typegoose";
 
-// will also be the task interface
+// this will also be the task interface
 export class Task {
   @prop({ required: true })
   public name: string;

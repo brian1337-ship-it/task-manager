@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from "zod";
 
-export const createTaskSchema = {
+export const taskSchema = {
   body: object({
     name: string({
       required_error: "Task name is required",
@@ -14,5 +14,5 @@ export const createTaskSchema = {
   }),
 };
 
-export type CreateTaskBody = TypeOf<typeof createTaskSchema.body>;
-export type UpdateTaskParams = TypeOf<typeof createTaskSchema.params>;
+export type RequestTaskBody = TypeOf<typeof taskSchema.body>;
+export type RequestTaskParams = TypeOf<typeof taskSchema.params>;
