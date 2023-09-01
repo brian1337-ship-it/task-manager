@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal } from "../components";
 import { useAppDispatch, useAppSelector } from "../reduxHooks";
-import { setTaskData } from "../slices/taskSlice";
+import { setTaskData, setTasks } from "../slices/taskSlice";
+import { toast } from "react-toastify";
+import { useCreateMutation } from "../slices/taskApiSlice";
+import { useFirstRender } from "../custom_hooks/useFirstRender";
 
 const Head = () => {
   // modal visibility
@@ -10,7 +13,21 @@ const Head = () => {
   //  the state
   const { taskData } = useAppSelector((state) => state.taskManager);
 
+  const [create, { isLoading }] = useCreateMutation();
+
   const dispatch = useAppDispatch();
+
+  const firstRender = useFirstRender();
+
+  useEffect(() => {
+    if (!firstRender && isLoading) {
+      toast.loading("Submitting...");
+    }
+
+    return () => {
+      toast.dismiss();
+    };
+  }, [isLoading, firstRender]);
 
   // handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -24,6 +41,34 @@ const Head = () => {
     setShowModal(false);
 
     dispatch(setTaskData(null));
+  };
+
+  // submit handler
+  const handleCreateTaskButton = async () => {
+    const { name, description } = taskData;
+
+    // check if input fields are empty
+    if (
+      name === "" ||
+      name === undefined ||
+      description === "" ||
+      description === undefined
+    ) {
+      toast(" Fields can't be empty ", {
+        duration: 6000,
+      });
+    } else {
+      try {
+        const res = await create(taskData).unwrap();
+
+        // save response data in global store
+        dispatch(setTasks(res));
+        setShowModal(false);
+        dispatch(setTaskData(null));
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   };
 
   return (
@@ -82,7 +127,7 @@ const Head = () => {
                 <div className="mt-11 flex flex-wrap gap-4">
                   <Button
                     label="Create"
-                    handleButtonClick={() => setShowModal(true)}
+                    handleButtonClick={() => handleCreateTaskButton()}
                   />
 
                   <Button

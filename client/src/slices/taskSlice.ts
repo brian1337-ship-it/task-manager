@@ -8,44 +8,7 @@ type taskManagerState = {
 };
 
 export const initialState: taskManagerState = {
-  tasks: [
-    {
-      id: 1,
-      name: "Go shopping",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-    {
-      id: 12,
-      name: "Pay bills",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-    {
-      id: 14,
-      name: "task 2",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-    {
-      id: 16,
-      name: "task 3",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-    {
-      id: 18,
-      name: "task 4",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-    {
-      id: 19,
-      name: "task 5",
-      description:
-        "Enjoy seamless shopping with our complimentary shipping service.",
-    },
-  ],
+  tasks: [],
   taskData: {} as ITaskData,
 };
 

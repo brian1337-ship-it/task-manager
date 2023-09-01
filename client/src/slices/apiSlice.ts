@@ -5,7 +5,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 //  Types
 import { ITaskData } from "../../typings";
 
-const baseQuery = fetchBaseQuery({ baseUrl: "" });
+// const baseQuery = fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL });
+
+const baseQuery = fetchBaseQuery({ baseUrl: "http://localhost:4000" });
 
 export const apiSlice = createApi({
   baseQuery,

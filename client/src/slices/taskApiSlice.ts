@@ -4,9 +4,18 @@ import { apiSlice } from "./apiSlice";
 const TASKS_URL = "/api/tasks";
 
 export const taskApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    create: builder.mutation({
+      query: (data) => ({
+        url: `${TASKS_URL}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
 
-    endpoints: (builder) => ({
 
-        
-    })
-})
+  }),
+});
+
+
+export const { useCreateMutation } = taskApiSlice;

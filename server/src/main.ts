@@ -9,7 +9,7 @@ import taskRoute from "./modules/task.route";
 import dotenv from "dotenv";
 dotenv.config();
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
