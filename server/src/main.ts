@@ -4,6 +4,7 @@ import { connectToDatabase, disconnectFromDatabase } from "./utils/database";
 import logger from "./utils/logger";
 import helmet from "helmet";
 import { CORS_ORIGIN } from "./constants";
+import taskRoute from "./modules/task.route";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -12,19 +13,20 @@ const PORT = process.env.PORT || 6000;
 
 const app = express();
 
-// parse json body
-app.use(express.json());
+// middleware
+app.use(express.json()); // parse json body
 app.use(
   cors({
     origin: CORS_ORIGIN,
     credentials: true,
   })
 );
+app.use(helmet()); // set and hide some headers for security purposes
 
-// set and hide some headers for security purposes
-app.use(helmet());
+// routes
+app.use("/api/tasks", taskRoute);
 
-// server instance
+// the server instance
 const server = app.listen(PORT, async () => {
   await connectToDatabase();
   logger.info(`Server listening  on port ${PORT}`);
