@@ -1,6 +1,6 @@
 import express from "express";
 import { processRequestBody } from "zod-express-middleware";
-import { createTaskHandler } from "./task.controller";
+import { createTaskHandler, updateTaskHandler } from "./task.controller";
 import { createTaskSchema } from "./task.schema";
 
 const router = express.Router();
@@ -13,5 +13,8 @@ const router = express.Router();
 
 // create task
 router.post("/", processRequestBody(createTaskSchema.body), createTaskHandler);
+
+// update task
+router.patch("/:taskId", updateTaskHandler);
 
 export default router;
