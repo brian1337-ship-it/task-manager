@@ -29,7 +29,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
     }),
 
     getAllTasks: builder.query({
-      query: () => "/",
+      query: () => `${TASKS_URL}`,
     }),
   }),
 });

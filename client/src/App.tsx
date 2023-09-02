@@ -4,23 +4,34 @@ import { Head } from "./sections";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetAllTasksQuery } from "./slices/taskApiSlice";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "./custom_hooks/reduxHooks";
+import { setTasks } from "./slices/taskSlice";
 
 const App = () => {
-  // const [allTasks] = useGetAllTasksQuery();
+  const {
+    data: allTasks,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetAllTasksQuery();
 
-  // useEffect(() => {
-  //   const fetchAllTasks = async () => {
-  //     try {
-  //       const res = await allTasks().unwrap();
+  const dispatch = useAppDispatch();
 
-  //       console.log(res);
-  //     } catch (err) {
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading...");
+    } else if (isSuccess) {
+      dispatch(setTasks(allTasks));
+    } else if (isError) {
+      toast.error(error);
+    }
 
-  //     }
-  //   };
-
-  //   fetchAllTasks();
-  // }, []);
+    return () => {
+      toast.dismiss();
+    };
+  }, [isLoading, isSuccess, isError, error, allTasks, dispatch]);
 
   return (
     <main className="relative">

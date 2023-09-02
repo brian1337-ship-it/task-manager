@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, TaskCard } from "../components";
 import { setTasks, setTaskData, updateTasks } from "../slices/taskSlice";
 import { useAppSelector, useAppDispatch } from "../custom_hooks/reduxHooks";
@@ -14,9 +14,21 @@ const TaskList = () => {
   //  the state
   const { taskData } = useAppSelector((state) => state.taskManager);
 
-  const [updateTask, { isLoading }] = useUpdateTaskMutation();
+  const [updateTask, { isLoading, isSuccess }] = useUpdateTaskMutation();
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Processing...");
+    } else if (isSuccess) {
+      toast.success("Task updated");
+    }
+
+    return () => {
+      toast.dismiss();
+    };
+  }, [isLoading, isSuccess]);
 
   // handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -54,7 +66,6 @@ const TaskList = () => {
         dispatch(updateTasks(res));
         setShowModal(false);
         dispatch(setTaskData(null));
-        toast.success("Task updated");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
