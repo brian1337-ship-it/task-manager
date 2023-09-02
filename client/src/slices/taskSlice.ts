@@ -17,11 +17,12 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     setTasks: (state, action: PayloadAction<ITaskData[]>) => {
+      // initialize task list
       state.tasks = action.payload;
     },
 
     setTaskData: (state, action: PayloadAction<ITaskData | null>) => {
-      // update the task data input value
+      // update the task input field value
       if (action.payload) {
         const { name, value } = action.payload;
         state.taskData = { ...state.taskData, [name]: value };
@@ -48,6 +49,8 @@ export const taskSlice = createSlice({
     },
 
     updateTasks: (state, action: PayloadAction<ITaskData>) => {
+      // update specific task
+
       const { _id, name, description } = action.payload;
 
       //  find index of specific task

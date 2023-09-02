@@ -12,7 +12,6 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
     updateTask: builder.mutation({
       query: (data) => ({
         url: `${TASKS_URL}/` + data._id,
@@ -20,14 +19,12 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
     deleteTask: builder.mutation({
       query: (data) => ({
         url: `${TASKS_URL}/` + data,
         method: "DELETE",
       }),
     }),
-
     getAllTasks: builder.query({
       query: () => `${TASKS_URL}`,
     }),

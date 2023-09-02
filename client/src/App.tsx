@@ -23,6 +23,7 @@ const App = () => {
     if (isLoading) {
       toast.loading("Loading...");
     } else if (isSuccess) {
+      // to initialize task list in global store
       dispatch(setTasks(allTasks));
     } else if (isError) {
       toast.error(error);

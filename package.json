@@ -8,7 +8,7 @@
     "server": "nodemon --exec node --loader ts-node/esm server/src/main.ts",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "npm install && cd client && npm install"
   },
   "repository": {
     "type": "git",
