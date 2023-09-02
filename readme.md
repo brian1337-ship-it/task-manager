@@ -18,8 +18,8 @@ It includes the following:
 
 Possible future improvements:
 
-- Protected routes and endpoints that require authentication
-- Comprehensive unit and integration tests
+- Add protected routes and endpoints that require authentication
+- Add metrics for the API
 
 ## Usage
 
