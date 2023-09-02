@@ -1,6 +1,6 @@
 # Task Management App  
 
-This is a full-stack web application for managing tasks, as per the TryHackMe task/assignment. The application allows users to create, read, update, and delete tasks and is built with Node.js and Express for the backend, React for the frontend, and MongoDB for the database. TypeScript is also used.
+This is a full-stack web application for managing tasks, as per the TryHackMe task/assignment. The application allows users to create, read, update, and delete tasks.
 
 It includes the following:
 
