@@ -13,9 +13,30 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    updateTask: builder.mutation({
+      query: (data) => ({
+        url: `${TASKS_URL}/` + data._id,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
 
+    deleteTask: builder.mutation({
+      query: (data) => ({
+        url: `${TASKS_URL}/` + data,
+        method: "DELETE",
+      }),
+    }),
+
+    getAllTasks: builder.query({
+      query: () => "/",
+    }),
   }),
 });
 
-
-export const { useCreateMutation } = taskApiSlice;
+export const {
+  useCreateMutation,
+  useUpdateTaskMutation,
+  useGetAllTasksQuery,
+  useDeleteTaskMutation,
+} = taskApiSlice;

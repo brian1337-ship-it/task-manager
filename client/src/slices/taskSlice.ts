@@ -16,7 +16,7 @@ export const taskSlice = createSlice({
   name: "taskManager",
   initialState,
   reducers: {
-    setTasks: (state, action: PayloadAction<tasks[]>) => {
+    setTasks: (state, action: PayloadAction<ITaskData[]>) => {
       state.tasks = action.payload;
     },
 
@@ -27,14 +27,43 @@ export const taskSlice = createSlice({
         state.taskData = { ...state.taskData, [name]: value };
       } else {
         // reset the task data
-        state.taskData = {};
+        state.taskData = {} as ITaskData;
       }
+    },
+
+    updateTaskData: (state, action: PayloadAction<ITaskData | null>) => {
+      // update the task data input value
+      if (action.payload) {
+        const { _id, name, description } = action.payload;
+        state.taskData = {
+          ...state.taskData,
+          ["_id"]: _id,
+          ["name"]: name,
+          ["description"]: description,
+        };
+      } else {
+        // reset the task data
+        state.taskData = {} as ITaskData;
+      }
+    },
+
+    updateTasks: (state, action: PayloadAction<ITaskData>) => {
+      const { _id, name, description } = action.payload;
+
+      //  find index of specific task
+      const objIndex = state.tasks.findIndex(
+        (obj: ITaskData) => obj._id == _id
+      );
+
+      //Update tasks's properties.
+      state.tasks[objIndex] = { ...state.tasks[objIndex], ...action.payload };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setTasks, setTaskData } = taskSlice.actions;
+export const { setTasks, setTaskData, updateTaskData, updateTasks } =
+  taskSlice.actions;
 
 // export reducer
 export default taskSlice.reducer;

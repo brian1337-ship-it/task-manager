@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "../components";
-import { useAppDispatch, useAppSelector } from "../reduxHooks";
+import { useAppDispatch, useAppSelector } from "../custom_hooks/reduxHooks";
 import { setTaskData, setTasks } from "../slices/taskSlice";
 import { toast } from "react-toastify";
 import { useCreateMutation } from "../slices/taskApiSlice";
