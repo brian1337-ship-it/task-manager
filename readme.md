@@ -1,6 +1,6 @@
 # Task Management App
 
-This is a full-stack web application for managing tasks, as per the TryHackMe task/assignment. The application allows users to create, read, update, and delete tasks.
+This is a full-stack web application for managing tasks. The application allows users to create, read, update, and delete tasks.
 
 It includes the following:
 

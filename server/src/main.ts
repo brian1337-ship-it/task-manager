@@ -21,7 +21,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(helmet()); // set and hide some headers for security purposes
+app.use(helmet()); // set and hide some headers for security purposes.Cross-Site Scripting (XSS) and click-jacking attacks
 
 // routes
 app.use("/api/tasks", taskRoute);
@@ -32,7 +32,7 @@ const server = app.listen(PORT, async () => {
   logger.info(`Server listening  on port ${PORT}`);
 });
 
-// signals to listen to
+// signals to listen to for termination
 const signals = ["SIGTERM", "SIGINT"];
 
 const gracefulShutdown = (signal: string) => {

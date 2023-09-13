@@ -82,7 +82,7 @@ const TaskList = () => {
       <Modal isVisible={showModal} onClose={() => handleCloseModal()}>
         <div className="p-6">
           <h3 className=" text-xl font-semibold text-gray-900 mb-5 ">
-            Create Task
+            Edit Task
           </h3>
 
           <div className="w-full max-w-lg ">
